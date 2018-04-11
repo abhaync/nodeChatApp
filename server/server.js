@@ -20,12 +20,13 @@ io.on('connection', (socket) => {
 
   socket.on('createMessage', (msgData) => {
     console.log("New Message: ", msgData);
+    io.emit('newMessage', {
+      from: msgData.from,
+      text: msgData.text,
+      createdAt: new Date().getTime()
+    })
   })
-  socket.emit('newMessage', {
-    from: 'Abhay',
-    text: 'Hey !',
-    createdAt: new Date().getTime()
-  })
+
 })
 server.listen(port, () => {
   console.log(`Server running on port ${port}`);
