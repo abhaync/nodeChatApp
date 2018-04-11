@@ -13,7 +13,15 @@ const publicPath = path.join(__dirname,'..','public');
 app.use(express.static(publicPath));
 io.on('connection', (socket) => {
   console.log("New User Connected");
-
+  socket.emit('newMessage', {
+    from: 'Admin',
+    text: 'Welcome to the chat'
+  })
+  socket.broadcast.emit('newMessage', {
+    from: 'Admin',
+    text: 'New User Connected',
+    createdAt: new Date().getTime()
+  })
   socket.on('disconnect', () => {
     console.log("User Disconnected");
   })
@@ -25,6 +33,11 @@ io.on('connection', (socket) => {
       text: msgData.text,
       createdAt: new Date().getTime()
     })
+    // socket.broadcast.emit('newMessage', {
+    //   from: msgData.from,
+    //   text: msgData.text,
+    //   createdAt: new Date().getTime()
+    // })
   })
 
 })
