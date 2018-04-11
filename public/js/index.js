@@ -1,6 +1,6 @@
 var socket = io();
 socket.on('connect', function() {
-  console.log('Connted to Server');
+  console.log('Connected to Server');
 
 })
 socket.on('disconnect', function() {
